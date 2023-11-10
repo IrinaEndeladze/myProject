@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.my-custom-form-item .ant-form-item-label > label {
+  font-size: 14px;
+  color: rgba(108, 108, 108, 1);
+  font-weight: 500;
+}
+.my-custom-form-item
+  .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: transparent;
+}

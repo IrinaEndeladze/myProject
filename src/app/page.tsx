@@ -1,12 +1,27 @@
-"use client";
-import LoginForm from "@/components/LoginForm/page";
-import dynamic from "next/dynamic";
-import Image from "next/image";
+// export default function Home() {
+//   return (
+//     <main className="flex min-h-screen  items-center justify-center p-24 bg-custom-gradient">
+//       "hello allll"
+//     </main>
+//   );
+// }
 
-export default function Home() {
+import Link from "next/link";
+
+function Home() {
   return (
-    <main className="flex min-h-screen  items-center justify-center p-24 bg-custom-gradient">
-      <LoginForm />
-    </main>
+    <ul>
+      <li>
+        <Link href="/">Home</Link>
+      </li>
+      <li>
+        <Link href="/about">About Us</Link>
+      </li>
+      <li>
+        <Link href="/blog/hello-world">Blog Post</Link>
+      </li>
+    </ul>
   );
 }
+
+export default Home;

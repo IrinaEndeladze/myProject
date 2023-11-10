@@ -1,6 +1,6 @@
+import SideBar from "@/components/sideBar";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -16,7 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>{children}</body>
+      <body className={montserrat.className}>
+        <div className="w-full flex">
+          <div className="max-w-[270px] h-[100vh] w-full bg-layoutBgColor">
+            <SideBar />
+          </div>
+          <div className="w-full bg-white">{children}</div>
+        </div>
+      </body>
     </html>
   );
 }
