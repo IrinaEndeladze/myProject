@@ -61,7 +61,7 @@ const SignIn = () => {
           <Button
             type="primary"
             htmlType="submit"
-            className="w-full  text-green font-[montserrat] font-[500] text-[14px]  py-[14px] h-auto"
+            className="w-full  font-[montserrat] font-[500] text-[14px]  py-[14px] h-auto"
           >
             SIGN IN
           </Button>
