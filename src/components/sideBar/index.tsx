@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CourseIcon,
   HomeIcon,
@@ -10,6 +10,9 @@ import {
 import UserAvatar from "../userAvatar";
 import { Button } from "antd";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { link } from "fs";
 
 const DashboardItem = [
   {
@@ -39,7 +42,8 @@ const DashboardItem = [
 ];
 
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState("Home");
+  const pathname = usePathname();
+  const [activeTab, setActiveTab] = useState(pathname);
 
   return (
     <div className="flex   items-center pt-[96px] flex-col w-full h-full">
@@ -48,11 +52,11 @@ const SideBar = () => {
         {DashboardItem?.map((item) => (
           <Link
             key={item?.id}
-            onClick={() => setActiveTab(item?.title)}
+            onClick={() => setActiveTab(item?.link)}
             className="flex flex-row gap-[15px] bg-primary  items-center py-3 w-full justify-center rounded"
             style={{
               backgroundColor:
-                activeTab === item?.title
+                activeTab === item?.link
                   ? "rgba(254, 175, 0, 1)"
                   : "transparent",
             }}
