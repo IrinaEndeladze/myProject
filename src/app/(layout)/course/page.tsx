@@ -8,42 +8,17 @@ import { DeleteIcon, EditIcon } from "../../../../public/Icons/Icons";
 import ICourseData from "@/types/ICourseData";
 import DataHeader from "@/components/tableHeader";
 import { useState } from "react";
-
 import CourseModal from "@/components/modals/courseModal";
-
-const data: ICourseData[] = [
-  {
-    key: "1",
-    coursename: "react",
-    level: "beginer",
-    instructor: "irina",
-    startDate: "08-Dec, 2021",
-    endDate: "08-Dec, 2021",
-    image: "/avatar.png",
-  },
-  {
-    key: "2",
-    coursename: "next js",
-    level: "beginer",
-    instructor: "irina",
-    startDate: "08-Dec, 2021",
-    endDate: "08-Dec, 2021",
-    image: "/avatar.png",
-  },
-  {
-    key: "3",
-    coursename: "angular",
-    level: "beginer",
-    instructor: "irina",
-    startDate: "08-Dec, 2021",
-    endDate: "08-Dec, 2021",
-    image: "/avatar.png",
-  },
-];
+import db from "../../../../db.json";
 
 const Course = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("ADD STUDENT");
+
+  const [courseData, setCourseData] = useState(db.courses);
+
+  const teachersData = db.teachers;
+
   const columns: ColumnsType<ICourseData> = [
     {
       title: "",
@@ -51,7 +26,7 @@ const Course = () => {
       key: "image",
       render: (text) => (
         <Image
-          src={text}
+          src={"/avatar.png"}
           alt={""}
           width={65}
           height={55}
@@ -61,29 +36,33 @@ const Course = () => {
     },
     {
       title: "Course Name",
-      dataIndex: "coursename",
-      key: "coursename",
+      dataIndex: "course_name",
+      key: "course_name",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Level",
-      dataIndex: "level",
-      key: "level",
+      dataIndex: "course_difficulty",
+      key: "course_difficulty",
     },
     {
       title: "Instructor",
-      dataIndex: "instructor",
-      key: "instructor",
+      dataIndex: "teacher_id",
+      key: "teacher_id",
+      render: (id) => {
+        const teacherName = teachersData.filter((item) => item.id === id);
+        return <a>{teacherName[0].name}</a>;
+      },
     },
     {
       title: "Start Date",
-      dataIndex: "startDate",
-      key: "startDate",
+      dataIndex: "start_date",
+      key: "start_date",
     },
     {
       title: "End Date",
-      dataIndex: "endDate",
-      key: "endDate",
+      dataIndex: "end_date",
+      key: "end_date",
     },
     {
       title: "",
@@ -119,7 +98,7 @@ const Course = () => {
         isOpen={isModalOpen}
         setModalTitle={setModalTitle}
       />
-      <DataTable<ICourseData> columns={columns} data={data} />
+      <DataTable<ICourseData> columns={columns} data={courseData} />
     </div>
   );
 };

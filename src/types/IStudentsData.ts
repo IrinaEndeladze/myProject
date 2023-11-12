@@ -1,10 +1,10 @@
 type ICourseData = {
-  key: string;
+  id: number;
   name: string;
   email: string;
-  phone: number;
-  personalNumber: number;
-  dateOfAdmission: string;
+  phone: string;
+  personal_number: string;
+  dateOfAdmission?: string;
   image?: string;
 };
 

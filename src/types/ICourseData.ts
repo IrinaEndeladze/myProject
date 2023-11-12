@@ -1,10 +1,10 @@
 type ICourseData = {
-  key: string;
-  coursename: string;
-  level: string;
-  instructor: string;
-  startDate: string;
-  endDate: string;
+  id: number;
+  course_name: string;
+  course_difficulty: string;
+  teacher_id: number;
+  start_date: string;
+  end_date: string;
   image?: string;
 };
 

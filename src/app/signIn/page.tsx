@@ -1,30 +1,31 @@
 "use client";
-
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
-
-type FieldType = {
-  email?: string;
-  password?: string;
-};
+import { Button, Form, Input } from "antd";
+import { authenticate } from "@/app/lib/actions";
+import UserType from "@/types/IUser";
 
 const SignIn = () => {
+  const onFinish = async (values: any) => {
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    });
+    try {
+      const user = await authenticate(formData);
+      console.log("User authenticated:", user);
+    } catch (error) {
+      console.error("Authentication failed here:", error);
+    }
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
-    // <div className="flex justify-center items-center bg-white rounded-[20px]">
     <div className="flex min-h-screen  items-center justify-center p-24 bg-custom-gradient">
       <Form
         name="basic"
-        // labelCol={{ span: 20 }}
-        // wrapperCol={{ span: 20 }}
-        // style={{ maxWidth: 900 }}
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -39,7 +40,7 @@ const SignIn = () => {
           Enter your credentials to access your account
         </span>
 
-        <Form.Item<FieldType>
+        <Form.Item<UserType>
           label="Email"
           name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
@@ -48,7 +49,7 @@ const SignIn = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<UserType>
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}

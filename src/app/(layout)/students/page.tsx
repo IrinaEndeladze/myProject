@@ -6,12 +6,16 @@ import Image from "next/image";
 import { DeleteIcon, EditIcon } from "../../../../public/Icons/Icons";
 import IStudentsData from "@/types/IStudentsData";
 import DataHeader from "@/components/tableHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StudentsModal from "@/components/modals/studentModal";
+import db from "../../../../db.json";
 
-const Students = () => {
+const Students = async () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("ADD STUDENT");
+  const [studentsData, setStudentsData] = useState(db.students);
+  const [loading, setLoading] = useState();
+
   const columns: ColumnsType<IStudentsData> = [
     {
       title: "",
@@ -19,7 +23,7 @@ const Students = () => {
       key: "image",
       render: (text) => (
         <Image
-          src={text}
+          src={"/avatar.png"}
           alt={""}
           width={65}
           height={55}
@@ -45,8 +49,8 @@ const Students = () => {
     },
     {
       title: "Personal Number",
-      dataIndex: "personalNumber",
-      key: "personalNumber",
+      dataIndex: "personal_number",
+      key: "personal_number",
     },
     {
       title: "Date of admission",
@@ -73,36 +77,6 @@ const Students = () => {
     },
   ];
 
-  const data: IStudentsData[] = [
-    {
-      key: "1",
-      name: "anna",
-      email: "hello@gmail.com",
-      phone: 912344324,
-      personalNumber: 324234234,
-      dateOfAdmission: "08-Dec, 2021",
-      image: "/avatar.png",
-    },
-    {
-      key: "2",
-      name: "anna",
-      email: "hello@gmail.com",
-      phone: 912344324,
-      personalNumber: 324234234,
-      dateOfAdmission: "08-Dec, 2021",
-      image: "/avatar.png",
-    },
-    {
-      key: "3",
-      name: "anna",
-      email: "hello@gmail.com",
-      phone: 912344324,
-      personalNumber: 324234234,
-      dateOfAdmission: "08-Dec, 2021",
-      image: "/avatar.png",
-    },
-  ];
-
   return (
     <div className="bg-secondaryBg px-[30px] flex flex-col">
       {isModalOpen && (
@@ -119,7 +93,7 @@ const Students = () => {
         isOpen={isModalOpen}
         setModalTitle={setModalTitle}
       />
-      <DataTable<IStudentsData> columns={columns} data={data} />
+      <DataTable<IStudentsData> columns={columns} data={studentsData} />
     </div>
   );
 };

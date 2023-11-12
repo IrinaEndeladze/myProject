@@ -3,71 +3,49 @@ import DataTable from "@/components/dataTable";
 import type { ColumnsType } from "antd/es/table";
 import IPayments from "@/types/IPayments";
 import DataHeader from "@/components/tableHeader";
+import db from "../../../../db.json";
+import { useState } from "react";
 
 const Payments = () => {
+  const [paymentsData, setpaymentsData] = useState(db.payment);
+
   const columns: ColumnsType<IPayments> = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <a>{text}</a>,
+      dataIndex: "student_id",
+      key: "student_id",
+      render: (id) => {
+        const studentsName = db.students.filter((item) => item.id === id);
+        return <a>{studentsName[0].name}</a>;
+      },
     },
     {
       title: "Payment Schedule",
-      dataIndex: "paymentSchedule",
-      key: "paymentSchedule",
+      dataIndex: "Payment Schedule",
+      key: "Payment Schedule",
     },
     {
       title: "Bill Number",
-      dataIndex: "billNumber",
-      key: "billNumber",
+      dataIndex: "Bill Number",
+      key: "Bill Number",
     },
     {
       title: "Amount Paid",
-      dataIndex: "amountPaid",
-      key: "amountPaid",
+      dataIndex: "Amount Paid",
+      key: "Amount Paid",
     },
     {
       title: "Balance amount",
-      dataIndex: "balanceAmount",
-      key: "balanceAmount",
+      dataIndex: "Balance amount",
+      key: "Balance amount",
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "Date",
+      key: "Date",
     },
   ];
 
-  const data: IPayments[] = [
-    {
-      key: "1",
-      name: "first",
-      paymentSchedule: "wensday",
-      billNumber: 24234,
-      amountPaid: "INR 35000",
-      balanceAmount: "INR 35000",
-      date: "08-Dec, 2021",
-    },
-    {
-      key: "2",
-      name: "first",
-      paymentSchedule: "wensday",
-      billNumber: 24234,
-      amountPaid: "INR 35000",
-      balanceAmount: "INR 35000",
-      date: "08-Dec, 2021",
-    },
-    {
-      key: "3",
-      name: "first",
-      paymentSchedule: "wensday",
-      billNumber: 24234,
-      amountPaid: "INR 35000",
-      balanceAmount: "INR 35000",
-      date: "08-Dec, 2021",
-    },
-  ];
   return (
     <div className="bg-secondaryBg px-[30px] flex flex-col">
       <DataHeader
@@ -77,7 +55,7 @@ const Payments = () => {
         setIsOpen={() => {}}
         setModalTitle={() => {}}
       />
-      <DataTable<IPayments> columns={columns} data={data} />
+      <DataTable<IPayments> columns={columns} data={paymentsData} />
     </div>
   );
 };
