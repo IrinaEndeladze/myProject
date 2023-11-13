@@ -4,7 +4,6 @@ export async function GET() {
   try {
     const apiPath = "http://localhost:3001/students";
     const res = await axios.get(apiPath);
-    console.log("hereee", res?.data);
     return new Response(JSON.stringify(res?.data), {
       headers: { "content-type": "application/json" },
     });

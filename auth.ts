@@ -8,7 +8,7 @@ import User from "@/types/IUser";
 async function getUser(email: string, password: string): Promise<User | any> {
   console.log("response", email);
   try {
-    const response = await fetch(`${process?.env.baseUrl}api/sign-in`, {
+    const response = await fetch(`http://localhost:3000/api/sign-in`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

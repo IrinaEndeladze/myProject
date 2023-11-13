@@ -6,6 +6,7 @@ type ICourseData = {
   start_date: string;
   end_date: string;
   image?: string;
+  teacher?: string;
 };
 
 export default ICourseData;

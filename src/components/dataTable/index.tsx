@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
-import { Space, Table, Tag } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Image from "next/image";
-import ICourseData from "@/types/ICourseData";
-import IStudentsData from "@/types/IStudentsData";
 
 interface DataTableProps<T> {
   data: T[];
@@ -12,7 +9,12 @@ interface DataTableProps<T> {
 }
 
 const DataTable = <T extends {}>({ data, columns }: DataTableProps<T>) => (
-  <Table className="custom-table" columns={columns} dataSource={data} />
+  <Table
+    className="custom-table"
+    columns={columns}
+    dataSource={data}
+    pagination={false}
+  />
 );
 
 export default DataTable;

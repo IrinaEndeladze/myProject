@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { Button, Form, Input, Modal } from "antd";
+import { Button, DatePicker, Form, Input, Modal } from "antd";
 import ICourseData from "@/types/ICourseData";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import moment from "moment";
 
 interface IModal {
   isOpen: boolean;
@@ -12,6 +14,7 @@ interface IModal {
 }
 
 const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
+  const router = useRouter();
   const handleOk = () => {
     setIsOpen(false);
   };
@@ -21,7 +24,26 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
   };
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    const data = {
+      ...values,
+      end_date: moment(values.end_date).format("YYYY-MM-DD"),
+      start_date: moment(values.start_date).format("YYYY-MM-DD"),
+    };
+
+    console.log("Success heree:", data);
+    axios
+      .post("http://localhost:3000/api/courses/create", data)
+      .then((res) => {
+        console.log("resddd dataa", res);
+      })
+      .catch((err) => {
+        console.log("course error");
+      })
+      .finally(() => {
+        // clear inputts
+        setIsOpen(false);
+        router.refresh();
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -32,9 +54,6 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
     <Modal open={isOpen} onOk={handleOk} onCancel={handleCancel}>
       <Form
         name="basic"
-        // labelCol={{ span: 20 }}
-        // wrapperCol={{ span: 20 }}
-        // style={{ maxWidth: 900 }}
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -47,7 +66,7 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
         </h2>
         <Form.Item<ICourseData>
           label="Course Name"
-          name="coursename"
+          name="course_name"
           rules={[{ required: true, message: "Please input your curse name!" }]}
           className="w-full my-custom-form-item  "
         >
@@ -55,7 +74,7 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
         </Form.Item>
         <Form.Item<ICourseData>
           label="Level"
-          name="level"
+          name="course_difficulty"
           rules={[{ required: true, message: "Please input your Level!" }]}
           className="w-full my-custom-form-item  "
         >
@@ -63,7 +82,7 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
         </Form.Item>
         <Form.Item<ICourseData>
           label="Instructor"
-          name="instructor"
+          name="teacher"
           rules={[{ required: true, message: "Please input your Instructor!" }]}
           className="w-full my-custom-form-item  "
         >
@@ -72,20 +91,20 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
 
         <Form.Item<ICourseData>
           label="Start Date"
-          name="startDate"
+          name="start_date"
           rules={[{ required: true, message: "Please input your start date!" }]}
           className="w-full my-custom-form-item  "
         >
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         <Form.Item<ICourseData>
           label="End Date"
-          name="endDate"
+          name="end_date"
           rules={[{ required: true, message: "Please input your end date!" }]}
           className="w-full  my-custom-form-item !mb-[30px]"
         >
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         <Form.Item className="my-custom-form-item w-full bg-primary rounded ">

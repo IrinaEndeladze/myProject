@@ -36,6 +36,9 @@ body {
   background-color: transparent;
 }
 
+.my-custom-form-item .ant-picker {
+  width: 100% !important;
+}
 /* custom style of table  */
 
 .custom-table .ant-table-tbody > tr > td {

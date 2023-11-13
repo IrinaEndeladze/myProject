@@ -6,8 +6,19 @@ import DataHeader from "@/components/tableHeader";
 import db from "../../../../db.json";
 import { useState } from "react";
 
-const Payments = () => {
-  const [paymentsData, setpaymentsData] = useState(db.payment);
+async function getPaymentsData() {
+  const res = await fetch(`http://localhost:3000/api/payment`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+const Payments = async () => {
+  const paymentsData = await getPaymentsData();
 
   const columns: ColumnsType<IPayments> = [
     {

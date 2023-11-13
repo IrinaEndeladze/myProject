@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import IStudents from "@/types/IStudents";
 import IStudentsData from "@/types/IStudentsData";
+import axios from "axios";
+import moment from "moment";
+import { useRouter } from "next/navigation";
 
 interface IModal {
   isOpen: boolean;
@@ -11,6 +14,7 @@ interface IModal {
 }
 
 const StudentsModal = ({ isOpen, setIsOpen, title }: IModal) => {
+  const router = useRouter();
   const handleOk = () => {
     setIsOpen(false);
   };
@@ -20,7 +24,20 @@ const StudentsModal = ({ isOpen, setIsOpen, title }: IModal) => {
   };
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    console.log("Success heree:", values);
+    axios
+      .post("http://localhost:3000/api/students/create", values)
+      .then((res) => {
+        console.log("resddd dataa", res);
+      })
+      .catch((err) => {
+        console.log("course error");
+      })
+      .finally(() => {
+        router.refresh();
+        // clear inputts
+        setIsOpen(false);
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -31,9 +48,6 @@ const StudentsModal = ({ isOpen, setIsOpen, title }: IModal) => {
     <Modal open={isOpen} onOk={handleOk} onCancel={handleCancel}>
       <Form
         name="basic"
-        // labelCol={{ span: 20 }}
-        // wrapperCol={{ span: 20 }}
-        // style={{ maxWidth: 900 }}
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -73,7 +87,7 @@ const StudentsModal = ({ isOpen, setIsOpen, title }: IModal) => {
 
         <Form.Item<IStudentsData>
           label="Personal Number"
-          name="personalNumber"
+          name="personal_number"
           rules={[{ required: true, message: "Please input your start date!" }]}
           className="w-full my-custom-form-item  "
         >

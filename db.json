@@ -55,6 +55,29 @@
       "email": "noah.williams@example.com",
       "phone": "5550102",
       "personal_number": "987654323"
+    },
+    {
+      "name": "irina endeladze",
+      "email": "irina.edn@gmass",
+      "phone": "555010090",
+      "personal_number": "987654390",
+      "id": 10
+    },
+    {
+      "name": "ირინა ენდელაძე",
+      "email": "dsad@sd.ge",
+      "phone": "34343432",
+      "personal_number": "02344423",
+      "dateOfAdmission": "ddad",
+      "id": 11
+    },
+    {
+      "name": "john",
+      "email": "asd@asds.ge",
+      "phone": "234324",
+      "personal_number": "324",
+      "dateOfAdmission": "dsf",
+      "id": 12
     }
   ],
   "teachers": [
@@ -143,6 +166,54 @@
       "teacher_id": 1,
       "start_date": "2023-01-15",
       "end_date": "2023-05-30"
+    },
+    {
+      "course_name": "test",
+      "course_difficulty": "easy",
+      "teacher": "Raj",
+      "start_date": "2020-01-01",
+      "end_date": "2020-01-01",
+      "id": 10
+    },
+    {
+      "course_name": "test",
+      "course_difficulty": "easy pissiiiii",
+      "teacher": "Raj",
+      "start_date": "2020-01-01",
+      "end_date": "2020-01-01",
+      "id": 11
+    },
+    {
+      "course_name": "react native course",
+      "course_difficulty": "easy pissiiiii",
+      "teacher": "Raj",
+      "start_date": "2020-01-01",
+      "end_date": "2020-01-01",
+      "id": 12
+    },
+    {
+      "course_name": "asd",
+      "course_difficulty": "asd",
+      "teacher": "asd",
+      "start_date": "2023-11-13",
+      "end_date": "2023-11-13",
+      "id": 13
+    },
+    {
+      "course_name": "JAVAS COURSE",
+      "course_difficulty": "advanced",
+      "teacher": "me",
+      "start_date": "2023-11-13",
+      "end_date": "2023-11-13",
+      "id": 14
+    },
+    {
+      "course_name": "rame kai kursiii",
+      "course_difficulty": "asdsd",
+      "teacher": "sadasd",
+      "start_date": "2023-11-13",
+      "end_date": "2023-11-13",
+      "id": 15
     }
   ],
   "users": [
