@@ -15,10 +15,13 @@ const axiosInstance: AxiosInstance = axios.create({
 
 class authService {
   static login = async (email: string, password: string): Promise<any> => {
-    const response = await axiosInstance.post("/signIn", {
-      email,
-      password,
-    });
+    const response = await axiosInstance.post(
+      "http://localhost:3000/api/sign-in",
+      {
+        email,
+        password,
+      }
+    );
 
     return response.data;
   };

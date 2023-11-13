@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Form, Input } from "antd";
 import UserType from "@/types/IUser";
 import LoginForm from "./Login.form";
@@ -8,26 +8,12 @@ const SignIn = () => {
   const { values, handleSubmit, errors, touched, handleChange, isSubmitting } =
     LoginForm();
 
-  const onFinish = async (values: any) => {
-    handleSubmit();
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  useEffect(() => {
-    handleSubmit();
-  }, []);
-
   return (
     <div className="flex min-h-screen  items-center justify-center p-24 bg-custom-gradient">
       <Form
         name="basic"
         layout="vertical"
-        initialValues={{ remember: true }}
-        onFinish={() => handleSubmit()}
-        onFinishFailed={onFinishFailed}
+        onFinish={handleSubmit}
         autoComplete="off"
         className="flex flex-col justify-center items-center bg-white rounded-[20px] px-[30px] pt-[126px] pb-[58px] w-full max-w-[475px] "
       >
@@ -40,20 +26,24 @@ const SignIn = () => {
 
         <Form.Item<UserType>
           label="Email"
-          name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
           className="w-full my-custom-form-item  "
+          validateStatus={touched.email && errors.email ? "error" : ""}
         >
-          <Input value={values.email} onChange={handleChange} />
+          <Input value={values.email} name="email" onChange={handleChange} />
         </Form.Item>
 
         <Form.Item<UserType>
           label="Password"
-          name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
           className="w-full  my-custom-form-item !mb-[30px]"
+          validateStatus={touched.password && errors.password ? "error" : ""}
         >
-          <Input.Password value={values.password} onChange={handleChange} />
+          <Input.Password
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item className="my-custom-form-item w-full bg-primary rounded ">
@@ -61,6 +51,7 @@ const SignIn = () => {
             type="primary"
             htmlType="submit"
             className="w-full  font-[montserrat] font-[500] text-[14px]  py-[14px] h-auto"
+            loading={isSubmitting}
           >
             SIGN IN
           </Button>

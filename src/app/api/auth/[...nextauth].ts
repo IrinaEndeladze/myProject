@@ -1,8 +1,6 @@
 import authService from "@/services/authServices";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
 
 export default NextAuth({
   providers: [
@@ -10,15 +8,8 @@ export default NextAuth({
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
-        const { email, password, fromRegistration, registeredUser } =
-          credentials as any;
-
-        if (!!fromRegistration && !!registeredUser) {
-          return JSON.parse(registeredUser);
-        }
-
+        const { email, password } = credentials as any;
         const user = await authService.login(email, password);
-
         if (user) {
           return user;
         } else {
@@ -55,7 +46,7 @@ export default NextAuth({
   },
 
   pages: {
-    signIn: "/",
+    signIn: "/signIn",
     error: "/",
   },
 
