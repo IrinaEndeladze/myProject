@@ -1,20 +1,38 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, Modal } from "antd";
 import ICourseData from "@/types/ICourseData";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import moment from "moment";
+import dayjs from "dayjs";
 
 interface IModal {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
   title: string;
+  courseId: number | undefined;
 }
 
-const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
-  const router = useRouter();
+const CourseModal = ({ isOpen, setIsOpen, title, courseId }: IModal) => {
+  const [requestBody, setRequestBody] = useState();
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    axios
+      .get(` http://localhost:3000/api/courses/${courseId}`)
+      .then((res) => {
+        setRequestBody(res?.data);
+        form.setFieldsValue({
+          ...res?.data,
+          end_date: dayjs(res?.data?.end_date),
+          start_date: dayjs(res?.data?.start_date),
+        });
+      })
+      .catch((err) => {
+        console.log("course error");
+      })
+      .finally(() => {});
+  }, [isOpen]);
+
   const handleOk = () => {
     setIsOpen(false);
   };
@@ -26,24 +44,34 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
   const onFinish = (values: any) => {
     const data = {
       ...values,
-      end_date: moment(values.end_date).format("YYYY-MM-DD"),
-      start_date: moment(values.start_date).format("YYYY-MM-DD"),
+      end_date: dayjs(values.end_date),
+      start_date: dayjs(values.start_date),
     };
-
-    console.log("Success heree:", data);
-    axios
-      .post("http://localhost:3000/api/courses/create", data)
-      .then((res) => {
-        console.log("resddd dataa", res);
-      })
-      .catch((err) => {
-        console.log("course error");
-      })
-      .finally(() => {
-        // clear inputts
-        setIsOpen(false);
-        router.refresh();
-      });
+    if (courseId) {
+      axios
+        .put(`http://localhost:3000/api/courses/update/${courseId}`, data)
+        .then((res) => {
+          console.log("resddd dataa", res);
+        })
+        .catch((err) => {
+          console.log("course error");
+        })
+        .finally(() => {
+          setIsOpen(false);
+        });
+    } else {
+      axios
+        .post("http://localhost:3000/api/courses/create", data)
+        .then((res) => {
+          console.log("resddd dataa", res);
+        })
+        .catch((err) => {
+          console.log("course error");
+        })
+        .finally(() => {
+          setIsOpen(false);
+        });
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -54,15 +82,16 @@ const CourseModal = ({ isOpen, setIsOpen, title }: IModal) => {
     <Modal open={isOpen} onOk={handleOk} onCancel={handleCancel}>
       <Form
         name="basic"
+        form={form}
         layout="vertical"
-        initialValues={{ remember: true }}
+        initialValues={requestBody}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         className="flex flex-col justify-center items-center bg-white rounded-[20px] px-[30px] pt-[52px] pb-[29px] w-full max-w-[477px] "
       >
         <h2 className="font-[montserrat] font-[600] text-[22px] leading-[27px] mb-[9px] text-primaryText">
-          {title}
+          {courseId ? "edit" : "add"}
         </h2>
         <Form.Item<ICourseData>
           label="Course Name"

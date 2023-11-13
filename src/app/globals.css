@@ -79,3 +79,9 @@ body {
 .custom-table .ant-table-thead {
   border-top: 1px solid rgba(229, 229, 229, 1) !important;
 }
+
+/* custom modal style */
+
+.customModalStyle .ant-btn {
+  background-color: rgba(254, 175, 0, 1) !important;
+}

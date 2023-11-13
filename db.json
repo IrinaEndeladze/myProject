@@ -1,18 +1,12 @@
 {
   "students": [
     {
-      "id": 1,
-      "name": "Aria Smith",
+      "name": "annnaa",
       "email": "aria.smith@example.com",
       "phone": "5550100",
-      "personal_number": "987654321"
-    },
-    {
-      "id": 2,
-      "name": "Liam Johnson",
-      "email": "liam.johnson@example.com",
-      "phone": "5550101",
-      "personal_number": "987654322"
+      "personal_number": "987654321",
+      "dateOfAdmission": "ssadsa",
+      "id": 1
     },
     {
       "id": 3,
@@ -78,6 +72,14 @@
       "personal_number": "324",
       "dateOfAdmission": "dsf",
       "id": 12
+    },
+    {
+      "name": "mme",
+      "email": "asdas@dsd.ge",
+      "phone": "23434",
+      "personal_number": "93243423",
+      "dateOfAdmission": "ad",
+      "id": 13
     }
   ],
   "teachers": [
@@ -92,57 +94,15 @@
       "name": "James Wilson",
       "email": "james.wilson@example.com",
       "phone": "5550201"
-    }
-  ],
-  "courses": [
-    {
-      "id": 1,
-      "course_name": "Introduction to Biology",
-      "course_difficulty": "Beginner",
-      "teacher_id": 1,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
-    },
-    {
-      "id": 2,
-      "course_name": "Fundamentals of Mathematics",
-      "course_difficulty": "Intermediate",
-      "teacher_id": 2,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
     },
     {
       "id": 3,
-      "course_name": "World History Overview",
-      "course_difficulty": "Advanced",
-      "teacher_id": 1,
-      "start_date": "2023-01-15",
-      "end_date": "2023-05-30"
-    },
-    {
-      "id": 4,
-      "course_name": "Introduction to Biology",
-      "course_difficulty": "Beginner",
-      "teacher_id": 1,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
-    },
-    {
-      "id": 5,
-      "course_name": "Fundamentals of Mathematics",
-      "course_difficulty": "Intermediate",
-      "teacher_id": 2,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
-    },
-    {
-      "id": 6,
-      "course_name": "World History Overview",
-      "course_difficulty": "Advanced",
-      "teacher_id": 1,
-      "start_date": "2023-01-15",
-      "end_date": "2023-05-30"
-    },
+      "name": "James Wilson",
+      "email": "james.wilson@example.com",
+      "phone": "5550201"
+    }
+  ],
+  "courses": [
     {
       "id": 7,
       "course_name": "Introduction to Biology",
@@ -170,9 +130,9 @@
     {
       "course_name": "test",
       "course_difficulty": "easy",
-      "teacher": "Raj",
-      "start_date": "2020-01-01",
-      "end_date": "2020-01-01",
+      "teacher": "sadsdadadadds",
+      "start_date": "2019-12-31T20:00:00.000Z",
+      "end_date": "2019-12-31T20:00:00.000Z",
       "id": 10
     },
     {
@@ -192,14 +152,6 @@
       "id": 12
     },
     {
-      "course_name": "asd",
-      "course_difficulty": "asd",
-      "teacher": "asd",
-      "start_date": "2023-11-13",
-      "end_date": "2023-11-13",
-      "id": 13
-    },
-    {
       "course_name": "JAVAS COURSE",
       "course_difficulty": "advanced",
       "teacher": "me",
@@ -214,6 +166,22 @@
       "start_date": "2023-11-13",
       "end_date": "2023-11-13",
       "id": 15
+    },
+    {
+      "course_name": "node js course",
+      "course_difficulty": "igive",
+      "teacher": "memee",
+      "start_date": "2023-11-14T18:43:36.587Z",
+      "end_date": "2023-11-30T18:43:37.937Z",
+      "id": 19
+    },
+    {
+      "course_name": "java php",
+      "course_difficulty": "ddsd",
+      "teacher": "sdsd",
+      "start_date": "2023-11-07T18:43:53.736Z",
+      "end_date": "2023-11-28T18:43:55.987Z",
+      "id": 20
     }
   ],
   "users": [

@@ -8,14 +8,16 @@ import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditIcon, DeleteIcon } from "../../../public/Icons/Icons";
 import Image from "next/image";
+import DeleteModal from "../modals/deleteModal";
 
 interface Props {
   studentsData: IStudentsData[];
 }
 
 const AddStudents = ({ studentsData }: Props) => {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("ADD STUDENT");
+  const [courseId, setCourseId] = useState<number>();
 
   const columns: ColumnsType<IStudentsData> = [
     {
@@ -66,13 +68,23 @@ const AddStudents = ({ studentsData }: Props) => {
           <div
             className="cursor-pointer"
             onClick={() => {
-              setModalTitle("EDIT STUDENT"), setIsModalOpen(!isModalOpen);
+              console.log("record?.id", record?.id);
+              setCourseId(record?.id);
+              setIsModalOpen(!isModalOpen);
             }}
           >
             <EditIcon />
           </div>
-
-          <DeleteIcon />
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              console.log("record?.id", record?.id);
+              setCourseId(record?.id);
+              setDeleteModalOpen(!deleteModalOpen);
+            }}
+          >
+            <DeleteIcon />
+          </div>
         </Space>
       ),
     },
@@ -83,7 +95,15 @@ const AddStudents = ({ studentsData }: Props) => {
         <StudentsModal
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
-          title={modalTitle}
+          Id={courseId}
+        />
+      )}
+      {deleteModalOpen && (
+        <DeleteModal
+          type={"students"}
+          courseId={courseId}
+          deleteModalOpen={deleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
       )}
       <DataHeader
@@ -91,7 +111,6 @@ const AddStudents = ({ studentsData }: Props) => {
         headerTitle="Students List"
         setIsOpen={setIsModalOpen}
         isOpen={isModalOpen}
-        setModalTitle={setModalTitle}
       />
       <DataTable<IStudentsData> columns={columns} data={studentsData} />
     </div>

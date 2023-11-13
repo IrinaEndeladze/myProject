@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataHeader from "../tableHeader";
 import DataTable from "../dataTable";
 import { Space } from "antd";
@@ -9,6 +9,10 @@ import Image from "next/image";
 import ICourseData from "@/types/ICourseData";
 import db from "../../../db.json";
 import CourseModal from "../modals/courseModal";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
+import DeleteModal from "../modals/deleteModal";
 
 interface Props {
   courseData: ICourseData[];
@@ -16,8 +20,11 @@ interface Props {
 
 const AddCourse = ({ courseData }: Props) => {
   const teachersData = db.teachers;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("ADD STUDENT");
+  const [courseId, setCourseId] = useState<number>();
 
   const columns: ColumnsType<ICourseData> = [
     {
@@ -51,18 +58,24 @@ const AddCourse = ({ courseData }: Props) => {
       key: "teacher_id",
       render: (id) => {
         const teacherName = teachersData.filter((item) => item.id === id);
-        return <a>{"rane"}</a>;
+        return <a>{teacherName[0]?.name}</a>;
       },
     },
     {
       title: "Start Date",
       dataIndex: "start_date",
       key: "start_date",
+      render: (start_date) => {
+        return <span>{dayjs(start_date).format("YYYY-MM-DD")}</span>;
+      },
     },
     {
       title: "End Date",
       dataIndex: "end_date",
       key: "end_date",
+      render: (end_date) => {
+        return <span>{dayjs(end_date).format("YYYY-MM-DD")}</span>;
+      },
     },
     {
       title: "",
@@ -72,12 +85,23 @@ const AddCourse = ({ courseData }: Props) => {
           <div
             className="cursor-pointer"
             onClick={() => {
-              setModalTitle("EDIT COURSE"), setIsModalOpen(!isModalOpen);
+              console.log("record?.id", record?.id);
+              setCourseId(record?.id);
+              setIsModalOpen(!isModalOpen);
             }}
           >
             <EditIcon />
           </div>
-          <DeleteIcon />
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              console.log("record?.id", record?.id);
+              setCourseId(record?.id);
+              setDeleteModalOpen(!deleteModalOpen);
+            }}
+          >
+            <DeleteIcon />
+          </div>
         </Space>
       ),
     },
@@ -87,9 +111,17 @@ const AddCourse = ({ courseData }: Props) => {
     <div>
       {isModalOpen && (
         <CourseModal
+          courseId={courseId}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           title={modalTitle}
+        />
+      )}
+      {deleteModalOpen && (
+        <DeleteModal
+          courseId={courseId}
+          deleteModalOpen={deleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
       )}
       <DataHeader
@@ -97,7 +129,6 @@ const AddCourse = ({ courseData }: Props) => {
         headerTitle="Course List"
         setIsOpen={setIsModalOpen}
         isOpen={isModalOpen}
-        setModalTitle={setModalTitle}
       />
       <DataTable<ICourseData> columns={columns} data={courseData} />
     </div>
