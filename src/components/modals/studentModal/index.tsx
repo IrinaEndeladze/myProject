@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import IStudentsData from "@/types/IStudentsData";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface IModal {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface IModal {
 }
 
 const StudentsModal = ({ isOpen, setIsOpen, Id }: IModal) => {
+  const router = useRouter();
   const [requestBody, setRequestBody] = useState();
   const [form] = Form.useForm();
   const handleOk = () => {
@@ -31,7 +33,9 @@ const StudentsModal = ({ isOpen, setIsOpen, Id }: IModal) => {
       .catch((err) => {
         console.log("course error");
       })
-      .finally(() => {});
+      .finally(() => {
+        router.refresh();
+      });
   }, [isOpen]);
 
   const onFinish = (values: any) => {
@@ -46,6 +50,7 @@ const StudentsModal = ({ isOpen, setIsOpen, Id }: IModal) => {
         })
         .finally(() => {
           setIsOpen(false);
+          router.refresh();
         });
     } else {
       axios
@@ -58,6 +63,7 @@ const StudentsModal = ({ isOpen, setIsOpen, Id }: IModal) => {
         })
         .finally(() => {
           setIsOpen(false);
+          router.refresh();
         });
     }
   };

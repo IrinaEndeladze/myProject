@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface IModalDelete {
   deleteModalOpen: boolean;
@@ -15,6 +16,7 @@ const DeleteModal = ({
   courseId,
   type,
 }: IModalDelete) => {
+  const router = useRouter();
   const handleOk = () => {
     const reqType = type === "students" ? "students" : "courses";
     axios
@@ -27,6 +29,7 @@ const DeleteModal = ({
       })
       .finally(() => {
         setDeleteModalOpen(false);
+        router.refresh();
       });
   };
 

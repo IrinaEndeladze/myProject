@@ -104,35 +104,19 @@
   ],
   "courses": [
     {
-      "id": 7,
-      "course_name": "Introduction to Biology",
-      "course_difficulty": "Beginner",
-      "teacher_id": 1,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
-    },
-    {
-      "id": 8,
-      "course_name": "Fundamentals of Mathematics",
+      "course_name": "Fundamentals of Mathematics AND",
       "course_difficulty": "Intermediate",
-      "teacher_id": 2,
-      "start_date": "2023-09-01",
-      "end_date": "2023-12-15"
+      "teacher": "DASDASD",
+      "start_date": "2023-08-31T20:00:00.000Z",
+      "end_date": "2023-12-14T20:00:00.000Z",
+      "id": 8
     },
     {
-      "id": 9,
-      "course_name": "World History Overview",
-      "course_difficulty": "Advanced",
-      "teacher_id": 1,
-      "start_date": "2023-01-15",
-      "end_date": "2023-05-30"
-    },
-    {
-      "course_name": "test",
+      "course_name": "helooo alll",
       "course_difficulty": "easy",
       "teacher": "sadsdadadadds",
-      "start_date": "2019-12-31T20:00:00.000Z",
-      "end_date": "2019-12-31T20:00:00.000Z",
+      "start_date": "2020-01-14T20:00:00.000Z",
+      "end_date": "2020-01-29T20:00:00.000Z",
       "id": 10
     },
     {

@@ -4,6 +4,7 @@ import { Button, DatePicker, Form, Input, Modal } from "antd";
 import ICourseData from "@/types/ICourseData";
 import axios from "axios";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 
 interface IModal {
   isOpen: boolean;
@@ -13,6 +14,7 @@ interface IModal {
 }
 
 const CourseModal = ({ isOpen, setIsOpen, title, courseId }: IModal) => {
+  const router = useRouter();
   const [requestBody, setRequestBody] = useState();
   const [form] = Form.useForm();
 
@@ -58,6 +60,7 @@ const CourseModal = ({ isOpen, setIsOpen, title, courseId }: IModal) => {
         })
         .finally(() => {
           setIsOpen(false);
+          router.refresh();
         });
     } else {
       axios
@@ -70,6 +73,7 @@ const CourseModal = ({ isOpen, setIsOpen, title, courseId }: IModal) => {
         })
         .finally(() => {
           setIsOpen(false);
+          router.refresh();
         });
     }
   };
