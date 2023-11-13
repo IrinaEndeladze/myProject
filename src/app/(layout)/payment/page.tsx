@@ -27,7 +27,7 @@ const Payments = async () => {
       key: "student_id",
       render: (id) => {
         const studentsName = db.students.filter((item) => item.id === id);
-        return <a>{studentsName[0].name}</a>;
+        return <a>{studentsName[0]?.name}</a>;
       },
     },
     {
@@ -64,7 +64,6 @@ const Payments = async () => {
         headerTitle="Payment Details"
         isOpen={false}
         setIsOpen={() => {}}
-        setModalTitle={() => {}}
       />
       <DataTable<IPayments> columns={columns} data={paymentsData} />
     </div>
